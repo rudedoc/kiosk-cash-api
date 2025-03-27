@@ -8,6 +8,15 @@ class TicketsController < ApplicationController
 
   # GET /tickets/1 or /tickets/1.json
   def show
+    render json: @ticket
+  end
+
+  def cash_out
+    if @ticket.state == 'pending'
+      @ticket.update(state: 'cashed_out')  # or any logic you want
+    end
+
+    render json: @ticket
   end
 
   # GET /tickets/new
