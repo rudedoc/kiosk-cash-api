@@ -38,5 +38,16 @@ module KioskCashApi
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        # If you want to allow all origins (for dev/demo), use '*'
+        # Otherwise, specify something like 'http://localhost:9000'
+        origins '*'
+        resource '*',
+          headers: :any,
+          methods: [:get, :post, :patch, :put, :delete, :options, :head]
+      end
+    end
   end
 end

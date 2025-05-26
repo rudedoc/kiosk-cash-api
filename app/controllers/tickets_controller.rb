@@ -1,5 +1,6 @@
 class TicketsController < ApplicationController
-  before_action :set_ticket, only: %i[ show edit update destroy ]
+  before_action :set_ticket, only: %i[ show edit update destroy cash_out ]
+  skip_before_action :verify_authenticity_token, only: [:cash_out]
 
   # GET /tickets or /tickets.json
   def index
@@ -69,7 +70,7 @@ class TicketsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_ticket
-      @ticket = Ticket.find(params[:id])
+      @ticket = Ticket.find_by_ean_code(params[:ean_code])
     end
 
     # Only allow a list of trusted parameters through.
